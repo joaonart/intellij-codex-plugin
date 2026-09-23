@@ -49,7 +49,7 @@
                 class="com.jnart.codex.CodexAction"
                 text="Codex Terminal"
                 description="Open Codex in IntelliJ Terminal"
-                icon="/icons/codex.svg">
+                icon="/icons/codexIcon.svg">
             <!-- Dedicated Keyboard Shortcut (Ctrl+Alt+C / Cmd+Option+C) -->
             <keyboard-shortcut keymap="$default" first-keystroke="control alt C"/>
 
