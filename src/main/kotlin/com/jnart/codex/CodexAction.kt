@@ -1,0 +1,36 @@
+package com.jnart.codex
+
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.project.DumbAwareAction
+import com.intellij.openapi.project.Project
+import org.jetbrains.plugins.terminal.TerminalToolWindowManager
+
+/**
+ * Action triggered by the icon in the IntelliJ main header toolbar or keyboard shortcut.
+ * Opens a new terminal tab and executes the 'codex' CLI command.
+ */
+class CodexAction : DumbAwareAction() {
+
+    override fun actionPerformed(e: AnActionEvent) {
+        val project: Project = e.project ?: return
+
+        try {
+            val terminalManager = TerminalToolWindowManager.getInstance(project)
+            val workingDir = project.basePath
+
+            // Create and show a new terminal widget tab named "Codex"
+            val widget = terminalManager.createShellWidget(workingDir, "Codex", true, true)
+
+            // Send the 'codex' command for execution in the terminal
+            widget.sendCommandToExecute("codex")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    override fun update(e: AnActionEvent) {
+        val hasProject = e.project != null
+        e.presentation.isVisible = true
+        e.presentation.isEnabled = hasProject
+    }
+}
